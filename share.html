@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share a release — Vela Music</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 420px; margin: 32px auto; color: #111; }
+  a { color: #111; }
+  video { width: 100%; background: #111; }
+  fieldset { border: 1px solid #ccc; margin: 16px 0; }
+  button { font-size: 16px; padding: 10px 16px; }
+  #status { min-height: 1.4em; }
+</style>
+</head>
+<body>
+<p><a href="index.html">Vela Music</a></p>
+<h1>Share a release to TikTok</h1>
+<p>The channel operator signs in with TikTok, chooses who can view the video, and posts it to the authorized account.</p>
+<p><a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a></p>
+
+<video id="clip" src="review-clip.mp4" controls playsinline></video>
+
+<p><button id="connect" type="button">Continue with TikTok</button></p>
+<p id="account">Not connected</p>
+
+<fieldset>
+  <legend>Who can view this video</legend>
+  <label><input type="radio" name="privacy" value="PUBLIC_TO_EVERYONE"> Everyone</label><br>
+  <label><input type="radio" name="privacy" value="MUTUAL_FOLLOW_FRIENDS"> Friends</label><br>
+  <label><input type="radio" name="privacy" value="SELF_ONLY"> Only me</label>
+</fieldset>
+
+<label><input id="comment" type="checkbox"> Allow comment</label><br>
+<label><input id="duet" type="checkbox"> Allow duet</label><br>
+<label><input id="stitch" type="checkbox"> Allow stitch</label>
+
+<p><label><input id="music" type="checkbox"> By posting, you agree to TikTok's Music Usage Confirmation</label></p>
+
+<p><button id="post" type="button">Post</button></p>
+<p id="status"></p>
+
+<script>
+document.getElementById("post").addEventListener("click", () => {
+  const privacy = document.querySelector("input[name=privacy]:checked");
+  const music = document.getElementById("music").checked;
+  const status = document.getElementById("status");
+  if (!privacy || !music) {
+    status.textContent = "Choose who can view this video and confirm music usage.";
+    return;
+  }
+  status.textContent = "Sending to TikTok…";
+  document.body.dataset.posting = privacy.value;
+});
+</script>
+</body>
+</html>
